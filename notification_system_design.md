@@ -247,3 +247,119 @@ ON notifications(notificationType, createdAt);
 
 
 This improves filtering and date-range queries.
+
+ # Stage 4
+
+## Improving Notification Dashboard Performance
+
+### Problem
+
+The notification dashboard loads all notifications whenever a student opens the application.
+
+With millions of notifications:
+
+* Database load increases
+* Response time becomes slower
+* User experience degrades
+
+
+## Solution 1: Pagination
+
+Instead of loading all notifications:
+
+text
+Page 1 → 20 notifications
+Page 2 → Next 20 notifications
+
+
+### Advantages
+
+* Faster response
+* Less memory usage
+* Reduced network traffic
+
+### Disadvantages
+
+* Multiple requests required
+
+
+## Solution 2: Redis Caching
+
+Store frequently accessed notifications in Redis.
+
+Flow:
+
+User → Redis Cache → Database (only if cache miss)
+
+### Advantages
+
+* Very fast access
+* Reduces database load
+
+### Disadvantages
+
+* Additional infrastructure
+* Cache invalidation complexity
+
+
+## Solution 3: Lazy Loading
+
+Load notifications only when needed.
+
+### Advantages
+
+* Better user experience
+* Smaller initial payload
+
+### Disadvantages
+
+* More frontend logic
+
+
+
+## Solution 4: WebSockets
+
+Push new notifications in real time.
+
+### Advantages
+
+* Instant updates
+* No constant polling
+
+### Disadvantages
+
+* Persistent connections
+* More server resources
+
+---
+
+## Solution 5: Read Replicas
+
+Use separate databases for reads.
+
+Primary Database:
+
+* Writes
+
+Replica Database:
+
+* Reads
+
+### Advantages
+
+* Scales large systems
+
+### Disadvantages
+
+* Replication lag
+
+
+
+## Recommended Architecture
+
+1. Pagination
+2. Redis Cache
+3. WebSocket Updates
+4. Read Replicas
+
+This combination provides the best balance between performance and scalability.
