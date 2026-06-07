@@ -1,0 +1,124 @@
+{
+    "notifications": [
+        {
+            "ID": "3a885d60-54fa-4256-866f-95cf46932484",
+            "Type": "Event",
+            "Message": "induction",
+            "Timestamp": "2026-06-06 11:25:31"
+        },
+        {
+            "ID": "2a67f032-1367-4e27-b0fb-cc7cbeefcfad",
+            "Type": "Placement",
+            "Message": "PayPal Holdings Inc. hiring",
+            "Timestamp": "2026-06-06 09:25:16"
+        },
+        {
+            "ID": "d17472a8-bd9e-4215-b4a0-bed595164b41",
+            "Type": "Event",
+            "Message": "cult-fest",
+            "Timestamp": "2026-06-06 07:25:01"
+        },
+        {
+            "ID": "15031f2f-22d3-49a1-8cef-87cd79208a15",
+            "Type": "Event",
+            "Message": "farewell",
+            "Timestamp": "2026-06-07 02:24:46"
+        },
+        {
+            "ID": "665214e9-0919-4828-937d-e6cc1cf418cd",
+            "Type": "Event",
+            "Message": "tech-fest",
+            "Timestamp": "2026-06-07 00:24:31"
+        },
+        {
+            "ID": "489c90a6-d419-4eea-94a9-cd253a3e87d5",
+            "Type": "Result",
+            "Message": "internal",
+            "Timestamp": "2026-06-06 08:54:16"
+        },
+        {
+            "ID": "7e761c80-97b7-4982-ae62-38b08cd308e3",
+            "Type": "Placement",
+            "Message": "Advanced Micro Devices Inc. hiring",
+            "Timestamp": "2026-06-06 22:54:01"
+        },
+        {
+            "ID": "a40adc95-b01f-4105-9751-e12d94aaf4a8",
+            "Type": "Placement",
+            "Message": "Marvell Technology Inc. hiring",
+            "Timestamp": "2026-06-07 05:53:46"
+        },
+        {
+            "ID": "1c76357a-2678-4e12-8bcf-8fe790a1a6e0",
+            "Type": "Event",
+            "Message": "traditional-day",
+            "Timestamp": "2026-06-07 02:23:31"
+        },
+        {
+            "ID": "1f27bc73-03ea-4624-a196-e7b6a8c770b6",
+            "Type": "Placement",
+            "Message": "Microsoft Corporation hiring",
+            "Timestamp": "2026-06-07 00:53:16"
+        },
+        {
+            "ID": "a8fdee08-e530-4afd-b604-1f14f07a776e",
+            "Type": "Placement",
+            "Message": "Microsoft Corporation hiring",
+            "Timestamp": "2026-06-07 02:23:01"
+        },
+        {
+            "ID": "15efcab3-0025-4da8-88b3-528e55f82920",
+            "Type": "Event",
+            "Message": "tech-fest",
+            "Timestamp": "2026-06-07 04:22:46"
+        },
+        {
+            "ID": "8f2acbf3-9dfa-4993-aebd-a4871b1ae2a4",
+            "Type": "Result",
+            "Message": "mid-sem",
+            "Timestamp": "2026-06-07 01:52:31"
+        },
+        {
+            "ID": "3b39e043-0631-4ec6-8c9f-b3b5aa0b0cd1",
+            "Type": "Event",
+            "Message": "induction",
+            "Timestamp": "2026-06-06 21:22:16"
+        },
+        {
+            "ID": "06d15e1e-dddd-48fd-894e-573d5678ef63",
+            "Type": "Result",
+            "Message": "end-sem",
+            "Timestamp": "2026-06-06 08:22:01"
+        },
+        {
+            "ID": "184c183e-07dd-4276-a8ac-4f0fff579180",
+            "Type": "Event",
+            "Message": "farewell",
+            "Timestamp": "2026-06-06 11:51:46"
+        },
+        {
+            "ID": "6117794b-c24f-4ff7-8406-81ae77e42e39",
+            "Type": "Placement",
+            "Message": "Marvell Technology Inc. hiring",
+            "Timestamp": "2026-06-06 18:21:31"
+        },
+        {
+            "ID": "f3724007-a774-4a19-8069-6cda46447c41",
+            "Type": "Result",
+            "Message": "mid-sem",
+            "Timestamp": "2026-06-06 07:51:16"
+        },
+        {
+            "ID": "7f6d8f3b-5841-4851-b9eb-dd5bfdf7962a",
+            "Type": "Event",
+            "Message": "farewell",
+            "Timestamp": "2026-06-06 10:21:01"
+        },
+        {
+            "ID": "cfe6cd7a-bbd3-4a92-86b5-ff0cdd87eeb4",
+            "Type": "Result",
+            "Message": "project-review",
+            "Timestamp": "2026-06-07 04:20:46"
+        }
+    ]
+}
