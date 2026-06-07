@@ -2,23 +2,19 @@
 
 ## Notification System API Design
 
-### Base URL
 
-```http
-/api/notifications
-```
 
----
+http/api/notifications
+
+
+
 
 ### 1. Get All Notifications
 
-```http
-GET /api/notifications
-```
+httpGET /api/notifications
 
-Response
 
-```json
+Response json
 {
   "notifications": [
     {
@@ -30,86 +26,74 @@ Response
     }
   ]
 }
-```
 
----
 
 ### 2. Get Notification By ID
 
-```http
-GET /api/notifications/{id}
-```
+http/GET /api/notifications/{id}
 
-Response
 
-```json
+Response json
 {
   "id": "uuid",
   "type": "Placement",
   "message": "Amazon Hiring",
   "isRead": false
 }
-```
 
----
 
 ### 3. Create Notification
 
-```http
-POST /api/notifications
-```
+http/POST /api/notifications
+
 
 Request
 
-```json
+json
 {
   "type": "Placement",
   "message": "Amazon Hiring"
 }
-```
+
 
 Response
 
-```json
+json
 {
   "id": "uuid",
   "message": "Notification Created"
 }
-```
 
----
 
 ### 4. Mark Notification As Read
 
-```http
-PATCH /api/notifications/{id}/read
-```
+http/PATCH /api/notifications/{id}/read
+
 
 Response
 
-```json
+json
 {
   "message": "Notification marked as read"
 }
-```
 
----
+
+
 
 ### 5. Delete Notification
 
-```http
-DELETE /api/notifications/{id}
-```
+http/DELETE /api/notifications/{id}
+
 
 Response
 
-```json
+json
 {
   "message": "Notification deleted"
 }
-```
 
----
+
+
 
 ## Real-Time Notification Mechanism
 
@@ -144,106 +128,122 @@ I recommend PostgreSQL as the persistent storage database.
 * Supports large datasets efficiently
 * Easy integration with Node.js and MERN applications
 
----
 
 ## Database Schema
 
 ### Students Table
 
-| Column     | Type      |
-| ---------- | --------- |
-| student_id | UUID      |
-| name       | VARCHAR   |
-| email      | VARCHAR   |
-| created_at | TIMESTAMP |
+ Column     | Type      
+ ---------- | --------- 
+ student_id | UUID      
+ name       | VARCHAR   
+ email      | VARCHAR   
+ created_at | TIMESTAMP 
 
----
+
 
 ### Notifications Table
 
-| Column            | Type      |
-| ----------------- | --------- |
-| id                | UUID      |
-| student_id        | UUID      |
-| notification_type | VARCHAR   |
-| message           | TEXT      |
-| is_read           | BOOLEAN   |
-| created_at        | TIMESTAMP |
+ Column            | Type      
+ ----------------- | --------- 
+ id                | UUID      
+ student_id        | UUID      
+ notification_type | VARCHAR   
+ message           | TEXT      
+ is_read           | BOOLEAN   
+ created_at        | TIMESTAMP 
 
----
+# Stage 3
 
-## Example Queries
+## Query Optimization
 
-### Get Notifications of a Student
+Given Query
 
-```sql
+sql
 SELECT *
 FROM notifications
-WHERE student_id = '1042';
-```
+WHERE studentID = 1042
+AND isRead = false
+ORDER BY createdAt ASC;
 
-### Get Unread Notifications
 
-```sql
-SELECT *
+
+## Why This Query Becomes Slow
+
+When the notifications table grows to millions of rows:
+
+1. Full Table Scan
+
+   * Database scans all rows.
+
+2. Sorting Cost
+
+   * ORDER BY createdAt requires sorting.
+
+3. Large Dataset
+
+   * More rows mean longer execution time.
+
+
+## Recommended Index
+
+sql
+CREATE INDEX idx_notifications
+ON notifications(studentID, isRead, createdAt);
+
+
+
+
+## Why This Index Helps
+
+The database can directly locate:
+
+* studentID
+* unread notifications
+* createdAt ordering
+
+without scanning the entire table.
+
+
+## Time Complexity
+
+Before Index:
+text
+O(N)
+
+After Index:
+
+text
+O(log N)
+
+
+## Why Not Index Every Column?
+
+Problems:
+
+1. Increased Storage
+2. Slower INSERT operations
+3. Slower UPDATE operations
+4. Index maintenance overhead
+
+Therefore indexes should be created only for frequently queried columns.
+
+
+
+## Placement Notification Query
+
+
+SELECT DISTINCT studentID
 FROM notifications
-WHERE student_id = '1042'
-AND is_read = false;
+WHERE notificationType = 'Placement'
+AND createdAt >= NOW() - INTERVAL '7 days';
 ```
 
-### Mark Notification Read
+### Recommended Index
 
-```sql
-UPDATE notifications
-SET is_read = true
-WHERE id = 'notification_id';
-```
 
-### Create Notification
+CREATE INDEX idx_placement_notifications
+ON notifications(notificationType, createdAt);
 
-```sql
-INSERT INTO notifications
-(id, student_id, notification_type, message, is_read, created_at)
-VALUES
-(uuid_generate_v4(),
-'1042',
-'Placement',
-'Amazon Hiring',
-false,
-NOW());
-```
 
----
-
-## Problems When Data Grows
-
-As notification volume increases:
-
-* Queries become slower
-* Database size increases
-* Sorting operations become expensive
-* High read traffic affects performance
-
----
-
-## Solutions
-
-### Indexing
-
-Create indexes on:
-
-* student_id
-* is_read
-* created_at
-
-### Partitioning
-
-Partition notifications by date.
-
-### Caching
-
-Use Redis for frequently accessed notifications.
-
-### Read Replicas
-
-Use replicas to distribute read traffic.
+This improves filtering and date-range queries.
