@@ -507,3 +507,31 @@ Mark success
 * Better reliability
 * Easy scaling
 * Production-ready architecture
+
+# Stage 6
+
+## Priority Calculation
+
+Weights:
+
+- Placement = 3
+- Result = 2
+- Event = 1
+
+Priority Score:
+
+score = weight * 100 - age_in_minutes
+
+Recent notifications receive higher priority.
+Placement notifications are always prioritized over Result and Event notifications of similar age.
+
+## Efficient Top N Maintenance
+
+Instead of sorting the entire dataset repeatedly, a Min Heap of size N can be maintained.
+
+Benefits:
+- O(log N) insertion
+- O(N log K) processing
+- Suitable for continuous notification streams
+
+The implementation fetches notifications from the provided API and computes the Top 10 notifications based on priority score.
