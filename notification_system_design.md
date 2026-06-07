@@ -363,3 +363,147 @@ Replica Database:
 4. Read Replicas
 
 This combination provides the best balance between performance and scalability.
+
+# Stage 5
+
+## High Volume Notification Delivery System
+
+### Existing Problem
+
+Current Flow:
+
+
+HR Uploads Results
+        |
+        v
+Application
+        |
+        v
+For Each Student
+        |
+        v
+Send Notification
+
+
+Problems:
+
+1. Sequential processing
+2. Slow delivery
+3. Failure stops entire process
+4. Not scalable
+
+
+
+## Improved Design
+
+### Architecture
+
+
+HR Uploads Results
+        |
+        v
+Notification Service
+        |
+        v
+Message Queue
+        |
+        +----------------+
+        |                |
+        v                v
+Notification Worker   Email Worker
+        |                |
+        v                v
+Students Receive Updates
+
+## Components
+
+### Notification Service
+
+Responsibilities:
+
+* Validate uploaded data
+* Create notification records
+* Publish messages to queue
+
+
+### Message Queue
+
+Examples:
+
+* RabbitMQ
+* Kafka
+* AWS SQS
+
+Responsibilities:
+
+* Buffer messages
+* Prevent overload
+* Enable asynchronous processing
+
+
+
+### Notification Worker
+
+Responsibilities:
+
+* Read messages from queue
+* Push notifications to users
+* Retry failed deliveries
+
+
+
+### Email Worker
+
+Responsibilities:
+
+* Send email notifications
+* Handle retries
+* Track delivery status
+
+
+
+## Why This Design Is Better
+
+### Scalability
+
+Multiple workers can process messages simultaneously.
+
+### Reliability
+
+Failures do not stop the system.
+
+### Performance
+
+Parallel processing significantly reduces delivery time.
+
+### Fault Tolerance
+
+Messages remain in queue until successfully processed.
+
+
+## Pseudocode
+
+
+HR uploads result
+
+Create notification
+
+Publish message to queue
+
+Worker receives message
+
+Send notification
+
+If failed:
+    Retry
+
+Mark success
+
+
+## Benefits
+
+* Fast delivery
+* High throughput
+* Better reliability
+* Easy scaling
+* Production-ready architecture
